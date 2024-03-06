@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Example</title>
+</head>
+<body>
+    <h1>Server-Sent Events Example:</h1>
+    <div id="sse-content">
+    </div>
+
+    <script>
+        const sseSource = new EventSource("{% url 'sse' %}");
+
+        sseSource.onmessage = function(event) {
+            const sseContent = document.getElementById("sse-content");
+            sseContent.innerHTML += "<p>" + event.data + "</p>";
+        };
+
+        sseSource.onerror = function(event) {
+            console.error('SSE connection error:', event);
+            sseSource.close();
+        };
+    </script>
+</body>
+</html>
