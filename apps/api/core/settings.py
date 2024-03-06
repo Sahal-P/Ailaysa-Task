@@ -8,7 +8,9 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "http://localhost:5173/", "http://127.0.0.1:5500/"]
+
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -21,6 +23,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "storages",
     "users",
+    "posts",
+    "categorie",
 ]
 
 MIDDLEWARE = [
@@ -53,6 +57,22 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
+# ASGI_APPLICATION = "core.asgi.application"
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = (
+    *default_headers,
+    "cache-control",
+)
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5500",
+]
+
 
 DATABASES = {
     'default': {
