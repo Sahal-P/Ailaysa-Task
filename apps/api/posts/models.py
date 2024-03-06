@@ -14,7 +14,7 @@ class Post(BaseModel):
         content (str): The content of the post.
         created_at (datetime): The date and time when the post was created.
     """
-    title = models.CharField(_("Title"), max_length=HUNDRED)
+    title = models.CharField(_("Title"), max_length=HUNDRED, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("Author"))
     content = models.TextField(_("Content"))
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
