@@ -10,7 +10,15 @@ from rest_framework import status, serializers
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .tasks import my_task
+from .tasks import count_pathname
+import time
+import asyncio
+from django.http import StreamingHttpResponse
+from django.shortcuts import render
+from rest_framework.views import APIView
+from django.views.generic import View
+
+
 
 class UserProfileAPIView(APIView):
     serializer_class = UsersSerializer
@@ -24,7 +32,7 @@ class UserProfileAPIView(APIView):
             search_query = request.query_params.get('search', None)
             limit = int(request.query_params.get('limit', 10))
             skip = (int(request.query_params.get('page', 1)) - 1) * limit
-            my_task.delay()
+            
             if search_query:
                 queryset = User.objects.filter(Q(name__icontains=search_query) | Q(email__icontains=search_query)).order_by('name')[skip:skip + limit]
                 
@@ -36,7 +44,7 @@ class UserProfileAPIView(APIView):
             serializer = UsersSerializer(queryset, many=True)
 
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            raise APIException({"error": str(e)})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -45,11 +53,12 @@ class UserProfileAPIView(APIView):
             serializer = UsersSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            print(serializer.data)
+            pathname = request.query_params.get('pathname', 'media/images/category/subcategory/product/profile.jpeg')
+            count_pathname.delay(pathname)
         except serializers.ValidationError as error:
             raise error
         except Exception as e:
-            return APIException({"error": str(e)})
+            raise APIException({"error": str(e)})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def patch(self, request: Request, pk: int) -> Response:
@@ -75,3 +84,25 @@ class UserProfileAPIView(APIView):
             raise APIException({"error": str(e)})
         
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class StreamSentencesView(View):
+    def get(self, request):
+        def event_stream():
+            for sentence in self.generate_sentences():
+                yield f"data: {sentence}\n\n"
+        
+        response = StreamingHttpResponse(event_stream(), content_type='text/event-stream')
+        response['Cache-Control'] = 'no-cache'
+        return response
+    
+    def generate_sentences(self,):
+        sentences = ["This is the first sentence.",
+                     "Here comes the second sentence.",
+                     "And the third one follows.",
+                     "Next comes the fourth sentence.",
+                     "Fifth sentence, coming through!"]
+
+        for sentence in sentences:
+            yield sentence
+            time.sleep(1)
+            

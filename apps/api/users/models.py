@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
-from constants.constants import MAX_CONTACT_NUMBER_LENGTH, CUSTOMER_NAME_MAX_LENGTH
+from constants.constant import MAX_CONTACT_NUMBER_LENGTH, USER_NAME_MAX_LENGTH
 from core.common import BaseModel
 from core.storage_backend import PublicMediaStorage, PrivateMediaStorage
 from django.core.files.storage import FileSystemStorage
@@ -34,7 +34,7 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(
-        max_length=CUSTOMER_NAME_MAX_LENGTH,
+        max_length=USER_NAME_MAX_LENGTH,
         unique=True,
         db_index=True,
         verbose_name=_("Name"),
