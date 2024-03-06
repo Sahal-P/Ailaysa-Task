@@ -13,6 +13,7 @@ class PostSerializer(serializers.ModelSerializer):
     comments_count = serializers.SerializerMethodField()
     
     def get_comments_count(self, obj):
+        # Post.objects.annotate(total_comments=Count('comments'))
         return obj.comments.count()
 
     class Meta:
