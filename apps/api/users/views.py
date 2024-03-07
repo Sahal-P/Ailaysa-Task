@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 from django.views.generic import View
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from helpers.helpers import get_limit_skip
 from .tasks import count_pathname
 from django.db.models import Q
 from .models import User
@@ -56,8 +57,7 @@ class UserProfileAPIView(APIView):
         """
         try:
             search_query = request.query_params.get("search", None)
-            limit = int(request.query_params.get("limit", 10))
-            skip = (int(request.query_params.get("page", 1)) - 1) * limit
+            limit, skip = get_limit_skip(request)
 
             if search_query:
                 queryset = User.objects.filter(

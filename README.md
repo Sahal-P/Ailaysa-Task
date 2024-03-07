@@ -2,8 +2,8 @@
 ![Django 5.0](https://img.shields.io/badge/Django-5.0-green.svg)
 ![Django 5.0](https://img.shields.io/badge/DRF-5.0-red.svg)
 ![Celery 5.0](https://img.shields.io/badge/Celery-5.3.6-green.svg)
-![Redis](https://img.shields.io/badge/Redis-5.3.6-red.svg)
-![Postgresql 5.0](https://img.shields.io/badge/Postgresql-5.3.6-blue.svg)
+![Redis](https://img.shields.io/badge/Redis-red.svg)
+![Postgresql 5.0](https://img.shields.io/badge/Postgresql-blue.svg)
 
 
 # Ailaysa Task
@@ -61,12 +61,4 @@ docker-compose up --build
 ```
 
 ## Where to find Me
-Like Me on [Linkdin](https://www.linkedin.com/in/sahal-p-ba81a2260/)
-
-## API Response Example
-
-![ Api Put Example](https://utfs.io/f/16249a72-824c-4e06-bfd1-05d384f886d1-6i1yv7.jpg)
-![ Api Get Example](https://utfs.io/f/50b10584-965a-406a-ab5b-5ded766b48d5-axco3g.jpg)
-![ Api Post Example](https://utfs.io/f/d5059657-2605-421e-840c-4cb384555351-16bfvu.jpg)
-
-
+[Linkedin](https://www.linkedin.com/in/sahal-p-ba81a2260/)
