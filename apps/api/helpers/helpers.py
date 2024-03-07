@@ -2,12 +2,8 @@ from django.http import HttpRequest
 from rest_framework import serializers
 from rest_framework.request import Request
 
-def get_id(request: Request) -> str:
+def get_limit_skip(request: Request) -> str:
+    limit = int(request.query_params.get("limit", 10))
+    skip = (int(request.query_params.get("page", 1)) - 1) * limit
     
-    # If sending 'id' as a query param 
-    _id = request.query_params.get('id', None)
-    if _id is None:
-        _id = request.data.get("id", None)
-    if _id is None:
-        raise serializers.ValidationError({"id": ["This field is required."]})
-    return _id
+    return limit, skip
