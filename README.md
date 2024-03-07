@@ -72,3 +72,10 @@ npm run dev
 
 ## Where to find Me
 [Linkedin](https://www.linkedin.com/in/sahal-p-ba81a2260/)
+
+
+## API Response Example
+
+![ Api Put Example](https://utfs.io/f/7a848f6b-463a-4b1c-87c8-054e0dfdf52a-wsmb5s.png)
+![ Api Get Example](https://utfs.io/f/f71379db-cf10-49db-a2a5-90c2d027ecb5-nh5h73.png)
+![ Api Post Example](https://utfs.io/f/686937c7-55e7-42da-bc10-cae4bed36f2e-r8sy77.png)
