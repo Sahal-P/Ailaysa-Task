@@ -2,8 +2,8 @@
 ![Django 5.0](https://img.shields.io/badge/Django-5.0-green.svg)
 ![Django 5.0](https://img.shields.io/badge/DRF-5.0-red.svg)
 ![Celery 5.0](https://img.shields.io/badge/Celery-5.3.6-green.svg)
-![Redis](https://img.shields.io/badge/Redis-5.3.6-red.svg)
-![Postgresql 5.0](https://img.shields.io/badge/Postgresql-5.3.6-blue.svg)
+![Redis](https://img.shields.io/badge/Redis-red.svg)
+![Postgresql 5.0](https://img.shields.io/badge/Postgresql-blue.svg)
 
 
 # Ailaysa Task
