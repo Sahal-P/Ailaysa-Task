@@ -63,7 +63,8 @@ class UserProfileAPIView(APIView):
                 queryset = User.objects.filter(
                     Q(name__icontains=search_query) | Q(email__icontains=search_query)
                 ).order_by("name")[skip : skip + limit]
-
+            else:
+                queryset = User.objects.all().order_by("name")[skip : skip + limit]
             # Pagination
             # paginator = Paginator(queryset, 10)
             # page_number = request.query_params.get('page', 1)
