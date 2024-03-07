@@ -61,7 +61,7 @@ docker-compose up --build
 ```
 
 ## Where to find Me
-Like Me on [Linkdin](https://www.linkedin.com/in/sahal-p-ba81a2260/)
+[Linkedin](https://www.linkedin.com/in/sahal-p-ba81a2260/)
 
 ## API Response Example
 
