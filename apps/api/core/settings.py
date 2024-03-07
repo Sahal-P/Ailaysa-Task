@@ -1,3 +1,4 @@
+from corsheaders.defaults import default_headers
 from pathlib import Path
 from decouple import config
 import os
@@ -61,17 +62,16 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-from corsheaders.defaults import default_headers
 
 CORS_ALLOW_HEADERS = (
     *default_headers,
     "cache-control",
 )
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5500",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+#     "http://127.0.0.1:5500",
+# ]
 
 
 DATABASES = {
@@ -88,7 +88,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": config('CACHE_REDIS_URL'),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -153,7 +153,7 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, config("MEDIA_ROOT"))
     MEDIA_URL = config("MEDIA_URL")
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = config('REDIS_URL')
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
