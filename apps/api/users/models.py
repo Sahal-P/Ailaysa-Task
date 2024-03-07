@@ -20,10 +20,10 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=config('DEFAULT_PASSWORD', None), **extra_fields):
+    def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
+        
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
@@ -48,6 +48,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             )
         ],
         verbose_name=_("Contact Number"),
+        null=True,
+        blank=True
     )
     email = models.EmailField(unique=True, db_index=True, verbose_name=_("Email"))
     profile_picture = models.FileField(
@@ -56,6 +58,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
         verbose_name=_("Profile Picture"),
+    )
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this admin site.'),
     )
     objects = CustomUserManager()
     

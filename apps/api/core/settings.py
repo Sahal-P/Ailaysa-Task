@@ -81,7 +81,7 @@ DATABASES = {
         'USER': config('DATABASE_USER'),
         'PASSWORD': config('DATABASE_PASS'),
         'HOST': config('DATABASE_HOST'),
-        'PORT': '5432',
+        'PORT': config('DATABASE_PORT'),
     }
 }
 
@@ -120,7 +120,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, config("MEDIA_ROOT"))

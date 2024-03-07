@@ -16,6 +16,7 @@ media/
 .venv
 venv/
 .env
+env/
 
 # Database
 *.sqlite3
