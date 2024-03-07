@@ -7,8 +7,28 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 
 
+
 @shared_task
 def upload_product_picture(name, picture, image_name):
+    """
+    Celery task for uploading product pictures with image compression.
+
+    This task takes a product name, picture content, and image name as input, 
+    processes the image, compresses it, and uploads it to the corresponding product.
+
+    Parameters:
+        name (str): The name of the product to which the picture belongs.
+        picture (bytes): The binary content of the picture.
+        image_name (str): The name of the image file.
+
+    Raises:
+        FileNotFoundError: If the image file is not found.
+        PILImage.DecompressionBombError: If there is an error in decompressing the image.
+        Exception: For any other unexpected errors during image processing or upload.
+
+    Returns:
+        None
+    """
     product = Product.objects.get(name=name)
     img = PILImage.open(ContentFile(picture))
     try:

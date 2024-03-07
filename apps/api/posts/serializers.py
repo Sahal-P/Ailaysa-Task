@@ -4,16 +4,18 @@ from users.models import User
 from uuid import UUID
 
 class CommentSerializer(serializers.ModelSerializer):
+    """Serializer for Comment model."""
     class Meta:
         model = Comment
         fields = ['id', 'author', 'content', 'publication_date']
 
 class PostSerializer(serializers.ModelSerializer):
+    """Serializer for Post model."""
     comments = CommentSerializer(many=True, read_only=True)
     comments_count = serializers.SerializerMethodField()
     
     def get_comments_count(self, obj):
-        # Post.objects.annotate(total_comments=Count('comments'))
+        """Get the count of comments associated with the post."""
         return obj.comments.count()
 
     class Meta:
@@ -21,22 +23,14 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'author', 'content', 'created_at', 'comments_count', 'comments']
 
 class PostCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating a new Post."""
     class Meta:
         model = Post
         fields = ['id', 'title', 'content', 'author', 'created_at']
         
-    # def create(self, validated_data):
-    #     author_id = validated_data.pop('author')
-    #     print(type(author_id.id),'------------------------------------------------')
-    #     try:
-    #         author = User.objects.get(id=author_id)
-    #     except User.DoesNotExist:
-    #         raise serializers.ValidationError("Invalid author ID")
-
-    #     validated_data['author'] = author
-    #     return super().create(validated_data)
 
 class CommentCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating a new Comment."""
     class Meta:
         model = Comment
         fields = ['id','post', 'content', 'author', 'publication_date']

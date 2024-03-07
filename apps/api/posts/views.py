@@ -41,7 +41,6 @@ class RecentCommentPostListAPIView(generics.ListAPIView):
             3. If there are ties in the comment dates, posts are ordered by their creation date, with newer posts listed first.
         - Limit the queryset to the first 10 results to retrieve only the most relevant posts.
         """
-        # https://chat.openai.com/share/3dfedd88-3d94-4fb9-a4d4-eb6e24e2baa5
         recent_comment_posts = (
             Post.objects.annotate(
                 has_comments=Case(
@@ -57,13 +56,16 @@ class RecentCommentPostListAPIView(generics.ListAPIView):
 
 
 class PostListOrderedByCreatedAt(generics.ListAPIView):
+    """View to list posts ordered by creation date."""
     serializer_class = PostSerializer
 
     def get_queryset(self):
+        """Get the queryset of posts ordered by creation date."""
         return Post.objects.order_by("-created_at")
 
 
 class PostCreateViewSet(viewsets.ViewSet):
+    """ViewSet for creating new posts."""
     def create(self, request):
         serializer = PostCreateSerializer(data=request.data)
         if serializer.is_valid():
@@ -73,6 +75,7 @@ class PostCreateViewSet(viewsets.ViewSet):
 
 
 class CommentViewSet(viewsets.ViewSet):
+    """ViewSet for creating and deleting comments."""
     def create(self, request):
         serializer = CommentCreateSerializer(data=request.data)
         if serializer.is_valid():

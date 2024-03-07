@@ -5,6 +5,12 @@ from django.utils.translation import gettext_lazy as _
 from constants.constant import HUNDRED
 
 class Category(BaseModel):
+    """
+    Model representing a category.
+
+    Attributes:
+        name (str): The name of the category.
+    """
     name = models.CharField(max_length=HUNDRED, unique=True,
         db_index=True,
         verbose_name=_("Name"))
@@ -13,6 +19,13 @@ class Category(BaseModel):
         return self.name
 
 class Subcategory(BaseModel):
+    """
+    Model representing a subcategory.
+
+    Attributes:
+        category (Category): The category to which the subcategory belongs.
+        name (str): The name of the subcategory.
+    """
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
     name = models.CharField(max_length=HUNDRED, unique=True,
         db_index=True,
@@ -22,6 +35,14 @@ class Subcategory(BaseModel):
         return self.name
     
 class Product(BaseModel):
+    """
+    Model representing a product.
+
+    Attributes:
+        name (str): The name of the product.
+        picture (File): The picture of the product.
+        sub_category (Subcategory): The subcategory to which the product belongs.
+    """
     name = models.CharField(max_length=HUNDRED, unique=True,
         db_index=True,
         verbose_name=_("Name"))
