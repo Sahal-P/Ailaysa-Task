@@ -5,12 +5,17 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
+COPY ./config/requirements.txt /app
 COPY . /app
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r ./config/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./scripts/entrypoint.sh /entrypoint.sh
+WORKDIR /app/apps/api
 
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+# COPY ./scripts/entrypoint.sh /entrypoint.sh
+
+# RUN chmod +x /entrypoint.sh
+# ENTRYPOINT ["/entrypoint.sh"]
+
+
