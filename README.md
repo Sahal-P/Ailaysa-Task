@@ -60,5 +60,15 @@ docker-compose up --build
 
 ```
 
+**3. start frontend**
+```sh
+cd apps/web/
+
+npm install
+
+npm run dev
+
+```
+
 ## Where to find Me
 [Linkedin](https://www.linkedin.com/in/sahal-p-ba81a2260/)
